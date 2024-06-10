@@ -5,7 +5,7 @@ import icons from '../../ultils/icons'
 const { BsChevronRight, GoLocation, TbReportMoney, RiCrop2Line, BiBuildingHouse, FiSearch } = icons
 const Search = () => {
   return (
-    <div className='p-[10px] bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
+    <div className='p-[10px] w-3/5 my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
       <SearchItem text="Phòng trọ , nhà trọ" iconAfter={<BsChevronRight color='rgb(156, 163, 175)' />} iconBefore={<BiBuildingHouse color='rgb(156, 163, 175)' />} fontWeight />
       <SearchItem text="Toàn quốc" iconAfter={<BsChevronRight color='rgb(156, 163, 175)' />} iconBefore={<GoLocation color='rgb(156, 163, 175)' />} />
       <SearchItem text="Chọn giá" iconAfter={<BsChevronRight color='rgb(156, 163, 175)' />} iconBefore={<TbReportMoney color='rgb(156, 163, 175)' />} />

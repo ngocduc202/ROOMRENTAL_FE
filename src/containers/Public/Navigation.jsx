@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { apiGetCategories } from '../../services/category'
-import { formatVietnameseToString } from '../../ultils/constant'
+import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseToString'
+
 
 const Navigation = () => {
 
@@ -11,7 +12,6 @@ const Navigation = () => {
     const fetchCategories = async () => {
       const response = await apiGetCategories()
       if (response?.data?.err === 0) {
-        console.log(response)
         setCategories(response?.data?.response)
       }
     }
@@ -20,7 +20,7 @@ const Navigation = () => {
 
 
   return (
-    <div className='w-screen flex justify-center items-center h-[40px] bg-secondary1 text-white'>
+    <div className='w-full flex justify-center items-center h-[40px] bg-secondary1 text-white'>
       <div className='w-3/5 flex h-full items-center text-sm font-medium'>
         <NavLink
           to={`/`}
