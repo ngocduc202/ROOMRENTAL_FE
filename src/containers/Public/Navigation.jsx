@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { apiGetCategories } from '../../services/category'
 import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseToString'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../../store/action'
 
 
 const Navigation = () => {
 
-  const [categories, setCategories] = useState([])
-
+  const dispatch = useDispatch()
+  const { categories } = useSelector((state) => state.app)
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetCategories()
-      if (response?.data?.err === 0) {
-        setCategories(response?.data?.response)
-      }
-    }
-    fetchCategories()
-  }, [])
+    dispatch(actions.getCategories())
+  }, [dispatch])
 
 
   return (
