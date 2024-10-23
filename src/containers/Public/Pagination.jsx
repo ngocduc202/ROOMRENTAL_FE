@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { PageNumber } from '../../components'
 import icons from '../../ultils/icons'
+import { useSearchParams } from 'react-router-dom'
 
 const { GrLinkNext, GrLinkPrevious } = icons
 
@@ -9,12 +10,20 @@ const Pagination = ({ page }) => {
 
   const { count, posts } = useSelector(state => state.post)
   const [arrPage, setArrPage] = useState([])
-  const [currentPage, setCurrentPage] = useState(+page || 1)
+  const [currentPage, setCurrentPage] = useState(1)
   const [isHideEnd, setIsHideEnd] = useState(false)
   const [isHideStart, setIsHideStart] = useState(false)
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
-    let maxPage = Math.floor(count / posts.length)
+    let page = searchParams.get('page')
+    page && +page !== currentPage && setCurrentPage(+page)
+    !page && setCurrentPage(1)
+  }, [searchParams])
+
+
+  useEffect(() => {
+    let maxPage = Math.ceil(count / process.env.REACT_APP_LIMIT_POSTS)
     let end = (currentPage + 1) > maxPage ? maxPage : (currentPage + 1)
     let start = (currentPage - 1) <= 0 ? 1 : (currentPage - 1)
     let temp = []

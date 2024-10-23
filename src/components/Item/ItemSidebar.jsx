@@ -1,9 +1,16 @@
 import React, { memo } from 'react'
 import icons from '../../ultils/icons'
+import { createSearchParams, Link, useLocation, useNavigate } from 'react-router-dom'
+import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseToString'
+import * as actions from '../../store/action'
+import { useDispatch } from 'react-redux'
 
 
 const { GrNext } = icons
-const ItemSidebar = ({ title, content, IsDouble }) => {
+const ItemSidebar = ({ title, content, IsDouble, type }) => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const formatContent = () => {
     const oddEl = content?.filter((item, index) => {
@@ -22,26 +29,39 @@ const ItemSidebar = ({ title, content, IsDouble }) => {
     return formatContent
   }
 
+  const handleFilterPosts = (code) => {
+    navigate({
+      pathname: location.pathname,
+      search: createSearchParams({
+        [type]: code,
+      }).toString(),
+    })
+  }
+
   return (
     <div className='p-4 rounded-md bg-white w-full'>
       <h3 className='text-lg font-semibold mb-4'>{title}</h3>
       {!IsDouble && <div className='flex flex-col gap-2'>
         {content?.length > 0 && content?.map((item, index) => (
-          <div key={index} className='flex gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
+          <Link to={`${formatVietnameseToString(item?.value)}`} key={index} className='flex gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='gray' />
             <p>{item?.value}</p>
-          </div>
+          </Link>
         ))}
       </div>}
       {IsDouble && <div className='flex flex-col gap-2'>
         {content?.length > 0 && formatContent(content)?.map((item, index) => (
           <div key={index} className=''>
             <div className='flex items-center justify-around'>
-              <div className='flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
+              <div
+                onClick={() => handleFilterPosts(item?.left?.code)}
+                className='flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
                 <GrNext size={10} color='gray' />
                 <p className='text-sm'>{item?.left.value}</p>
               </div>
-              <div className='flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
+              <div
+                onClick={() => handleFilterPosts(item?.right?.code)}
+                className='flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed'>
                 <GrNext size={10} color='gray' />
                 <p className='text-sm'>{item?.right.value}</p>
               </div>
