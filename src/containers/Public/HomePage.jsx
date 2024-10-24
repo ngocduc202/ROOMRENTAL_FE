@@ -30,9 +30,6 @@ const HomePage = () => {
         <div className='w-[70%]'>
           <List />
           <Pagination />
-          <div className='h-[500px]'>
-
-          </div>
         </div>
         <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
           <ItemSidebar content={categories} title="Danh sách cho thuê" />
