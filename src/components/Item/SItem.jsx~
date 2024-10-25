@@ -1,0 +1,14 @@
+ const SItem = () => {
+    return (
+        <div>
+            <img src="" alt="anh"/>
+            <div>
+                <h4>
+                    
+                </h4>
+            </div>
+        </div>
+    )
+}
+
+export default SItem

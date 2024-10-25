@@ -1,0 +1,9 @@
+const NewPost = () => {
+    return (
+        <div>
+            <h3>tin moi dang</h3>
+        </div>
+    )
+}
+
+export  default NewPost

@@ -1,0 +1,9 @@
+const RelatedPost = () => {
+    return (
+        <div className='w-full bg-white rounded-md'>
+           <h3 className='font-medium text-lg'>Tin mới đăng </h3>
+        </div>
+    )
+}
+
+export default RelatedPost
