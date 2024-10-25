@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react'
+
 import { text } from '../../ultils/constant'
 import {Province, ItemSidebar, RelatedPost} from '../../components'
 import List from './List'
 import Pagination from './Pagination'
-import { useDispatch, useSelector } from 'react-redux'
-import * as actions from '../../store/action'
+import {useSelector} from 'react-redux';
 
 
 const HomePage = () => {
 
   const { categories, prices, areas } = useSelector((state) => state.app)
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(actions.getPrices())
-    dispatch(actions.getAreas())
-  }, [])
 
 
   return (
