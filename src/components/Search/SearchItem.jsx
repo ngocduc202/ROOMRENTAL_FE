@@ -8,6 +8,7 @@ const SearchItem = ({ iconBefore, iconAfter, text, fontWeight }) => {
         <span className={`${fontWeight && 'font-medium text-black'} w-full overflow-hidden text-ellipsis whitespace-nowrap`}> {text}</span>
       </div>
       {iconAfter && iconAfter}
+        <div className={"w-f"}></div>
     </div>
   )
 }

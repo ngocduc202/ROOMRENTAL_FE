@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { text } from '../../ultils/constant'
-import { Province, ItemSidebar } from '../../components'
+import {Province, ItemSidebar, RelatedPost} from '../../components'
 import List from './List'
 import Pagination from './Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/action'
+
 
 const HomePage = () => {
 
@@ -35,6 +36,7 @@ const HomePage = () => {
           <ItemSidebar content={categories} title="Danh sách cho thuê" />
           <ItemSidebar content={prices} type="priceCode" title="Xem theo giá" IsDouble={true} />
           <ItemSidebar content={areas} type="areaCode" title="Xem theo diện tích " IsDouble={true} />
+          <RelatedPost />
         </div>
       </div>
     </div>
