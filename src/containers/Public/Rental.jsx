@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {ItemSidebar, Province, RelatedPost} from '../../components';
 import List from './List';
 import Pagination from './Pagination';
-import {useDispatch, useSelector} from 'react-redux';
+import { useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import {formatVietnameseToString} from '../../ultils/Common/formatVietnameseToString';
 
