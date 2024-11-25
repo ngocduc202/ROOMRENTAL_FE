@@ -74,69 +74,71 @@ const Login = () => {
   }
 
   return (
-    <div className='bg-white w-[600px] p-[30px] pb-[100px] rounded-md shadow-sm'>
-      <h3 className='font-semibold text-2xl mb-3'>{isRegister ? 'Đăng ký' : 'Đăng nhập'}</h3>
-      <div className='w-full flex flex-col gap-5'>
-        {isRegister &&
+    <div className='w-full flex items-center justify-center'>
+      <div className='bg-white w-[600px] p-[30px] pb-[100px] rounded-md shadow-sm'>
+        <h3 className='font-semibold text-2xl mb-3'>{isRegister ? 'Đăng ký' : 'Đăng nhập'}</h3>
+        <div className='w-full flex flex-col gap-5'>
+          {isRegister &&
+            <InputForm
+              label='HỌ TÊN'
+              invalidFields={invalidFields}
+              setInvalidFields={setInvalidFields}
+              value={payload.name}
+              setValue={setPayload}
+              keyPayload={'name'}
+            />}
           <InputForm
-            label='HỌ TÊN'
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
-            value={payload.name}
+            label='SỐ ĐIỆN THOẠI'
+            value={payload.phone}
             setValue={setPayload}
-            keyPayload={'name'}
-          />}
-        <InputForm
-          invalidFields={invalidFields}
-          setInvalidFields={setInvalidFields}
-          label='SỐ ĐIỆN THOẠI'
-          value={payload.phone}
-          setValue={setPayload}
-          keyPayload={'phone'}
-        />
-        <InputForm
-          invalidFields={invalidFields}
-          setInvalidFields={setInvalidFields}
-          label='MẬT KHẨU'
-          value={payload.password}
-          setValue={setPayload}
-          keyPayload={'password'}
-          type='password'
-        />
-        <Button
-          text={isRegister ? 'Đăng ký' : 'Đăng nhập'}
-          bgColor='bg-secondary1'
-          textColor='text-white'
-          fullWith
-          onClick={hanldeSubmit}
-        />
-      </div>
-      <div className='mt-7 flex items-center justify-between'>
-        {isRegister ? <small>Bạn đã có tài khoản ? <span className='text-blue-700 hover:text-red-500 hover:underline cursor-pointer'
-          onClick={() => {
-            setIsRegister(false)
-            setPayload({
-              phone: '',
-              password: '',
-              name: ''
-            })
-          }}
-        >Đăng nhập ngay
-        </span></small> :
-          <>
-            <span className='text-blue-700 hover:text-red-500 cursor-pointer text-sm'>Bạn quên mật khẩu ?</span>
-            <span onClick={() => {
-              setIsRegister(true)
+            keyPayload={'phone'}
+          />
+          <InputForm
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
+            label='MẬT KHẨU'
+            value={payload.password}
+            setValue={setPayload}
+            keyPayload={'password'}
+            type='password'
+          />
+          <Button
+            text={isRegister ? 'Đăng ký' : 'Đăng nhập'}
+            bgColor='bg-secondary1'
+            textColor='text-white'
+            fullWith
+            onClick={hanldeSubmit}
+          />
+        </div>
+        <div className='mt-7 flex items-center justify-between'>
+          {isRegister ? <small>Bạn đã có tài khoản ? <span className='text-blue-700 hover:text-red-500 hover:underline cursor-pointer'
+            onClick={() => {
+              setIsRegister(false)
               setPayload({
                 phone: '',
                 password: '',
                 name: ''
               })
-            }} className='text-blue-700 hover:text-red-500 cursor-pointer text-sm'>Tạo tài khoản mới</span>
-          </>
-        }
-      </div>
+            }}
+          >Đăng nhập ngay
+          </span></small> :
+            <>
+              <span className='text-blue-700 hover:text-red-500 cursor-pointer text-sm'>Bạn quên mật khẩu ?</span>
+              <span onClick={() => {
+                setIsRegister(true)
+                setPayload({
+                  phone: '',
+                  password: '',
+                  name: ''
+                })
+              }} className='text-blue-700 hover:text-red-500 cursor-pointer text-sm'>Tạo tài khoản mới</span>
+            </>
+          }
+        </div>
 
+      </div>
     </div>
   )
 }

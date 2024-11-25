@@ -5,21 +5,31 @@ import Navigation from './Navigation'
 import Search from './Search'
 import { Contact, Intro } from '../../components'
 import * as actions from '../../store/action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Home = () => {
   const dispatch = useDispatch()
+  const { isLoggedIn } = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(actions.getPrices())
     dispatch(actions.getAreas())
     dispatch(actions.getProvinces())
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      isLoggedIn && dispatch(actions.getCurrent())
+    }, 1000)
+  }, [isLoggedIn])
+
+
   return (
     <div className='w-full flex flex-col gap-6 items-center h-full'>
       <Header />
       <Navigation />
-      <Search />
+      {isLoggedIn && <Search />}
       <div className='lg:w-3/5 w-4/5 flex flex-col items-start justify-start mt-3'>
         <Outlet />
       </div>

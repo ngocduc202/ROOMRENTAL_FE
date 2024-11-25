@@ -23,7 +23,7 @@ const Search = () => {
     const location = useLocation()
 
     useEffect(() => {
-        if (!location.pathname.includes(path.SEARCH)) {
+        if (!location?.pathname.includes(path.SEARCH)) {
             setArrMinMax({})
             setQueries({})
         }
