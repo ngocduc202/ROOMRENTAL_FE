@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import {createSearchParams, useLocation, useNavigate, useSearchParams} from 'react-router-dom'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 const notActive = 'w-[46px] h-[48px] flex items-center justify-center bg-white hover:bg-gray-300  rounded-md'
 
@@ -17,11 +17,15 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
     for (let entry of entries) {
       params.push(entry)
     }
-    let a = {}
-    params?.map(i => {
-      a = { ...a, [i[0]]: i[1] }
+    let searchParamsObject = {}
+    params?.forEach(i => {
+      if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) {
+        searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+      } else {
+        searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+      }
     })
-    return a
+    return searchParamsObject
   }
   const handleChangePage = () => {
     if (!(text === "...")) {

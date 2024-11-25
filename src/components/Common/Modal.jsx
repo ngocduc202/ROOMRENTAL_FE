@@ -5,7 +5,7 @@ import { getCodes, getCodesArea } from '../../ultils/Common/getCodes';
 const { GrLinkPrevious } = icons
 
 
-const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax }) => {
+const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax, defaultText }) => {
 
     const [persent1, setPersent1] = useState(name === 'price' && arrMinMax?.priceArr
         ? arrMinMax?.priceArr[0]
@@ -76,14 +76,17 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
     }
 
     const handleBeforeSubmit = (e) => {
+        let min = persent1 <= persent2 ? persent1 : persent2
+        let max = persent1 <= persent2 ? persent2 : persent1
+        let arrMinMax = [convertPersent(min), convertPersent(max)]
         const gaps = name === "price" ?
-            getCodes([convertPersent(persent1), convertPersent(persent2)], content)
-            : name === "area" ? getCodesArea([convertPersent(persent1), convertPersent(persent2)], content) : []
+            getCodes(arrMinMax, content)
+            : name === "area" ? getCodesArea(arrMinMax, content) : []
         handleSubmit(e, {
             [`${name}Code`]: gaps?.map(item => item.code),
-            [name]: `Từ ${convertPersent(persent1)} - ${convertPersent(persent2)} ${name === 'price' ? 'triệu' : 'm2'}`
+            [name]: `Từ ${convertPersent(min)} - ${convertPersent(max)} ${name === 'price' ? 'triệu' : 'm2'}`
         }, {
-            [`${name}Arr`]: [persent1, persent2]
+            [`${name}Arr`]: [min, max]
         }
         )
     }
@@ -99,7 +102,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                 onClick={(e) => {
                     e.stopPropagation()
                 }}
-                className='w-2/5 bg-white rounded-md'>
+                className='w-2/5 h-[500px] bg-white rounded-md relative'>
                 <div className='h-[45px] flex items-center px-4 border-b border-gray-100'>
                     <span
                         onClick={(e) => {
@@ -113,6 +116,17 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                 </div>
                 {(name === 'category' || name === 'province') &&
                     <div className='p-4 flex flex-col'>
+                        <span
+                            className='py-2 flex gap-2 items-center border-b border-gray-200'>
+                            <input
+                                type="radio"
+                                name={name}
+                                id='default'
+                                value={defaultText || ''}
+                                checked={!queries[`${name}Code`] ? true : false}
+                                onClick={(e) => handleSubmit(e, { [name]: defaultText, [`${name}Code`]: null })} />
+                            <label htmlFor='default'>{defaultText}</label>
+                        </span>
                         {content?.map(item => {
                             return (
                                 <span key={item?.code}
@@ -203,7 +217,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                     (name === 'price' || name === 'area') &&
                     <button
                         type='button'
-                        className='w-full mt-4 bg-[#FFA500] py-2 rounded-bl-md rounded-br-md font-medium'
+                        className='w-full absolute bottom-0 mt-4 bg-[#FFA500] py-2 rounded-bl-md rounded-br-md font-medium'
                         onClick={handleBeforeSubmit}
                     >
                         ÁP DỤNG
