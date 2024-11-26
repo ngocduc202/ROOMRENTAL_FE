@@ -18,11 +18,7 @@ const Home = () => {
     dispatch(actions.getProvinces())
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      isLoggedIn && dispatch(actions.getCurrent())
-    }, 1000)
-  }, [isLoggedIn])
+
 
 
   return (
