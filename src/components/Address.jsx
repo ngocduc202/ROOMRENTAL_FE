@@ -3,12 +3,12 @@ import Select from './Inputs/Select'
 import { apiGetPublicDistrict, apiGetPublicProvinces } from '../services'
 import InputReadOnly from './Inputs/InputReadOnly'
 
-const Address = () => {
+const Address = ({ setPayload }) => {
 
   const [provinces, setProvinces] = useState([])
   const [districts, setDistricts] = useState([])
-  const [province, setProvince] = useState(null)
-  const [district, setDistrict] = useState(null)
+  const [province, setProvince] = useState('')
+  const [district, setDistrict] = useState('')
   const [reset, setReset] = useState(false)
 
   useEffect(() => {
@@ -33,6 +33,14 @@ const Address = () => {
     !province ? setReset(true) : setReset(false)
     !province && setDistricts([])
   }, [province])
+
+  useEffect(() => {
+    setPayload(prev => ({
+      ...prev,
+      address: `${district ? `${districts?.find(item => item.district_id === district)?.district_name},` : ''} ${province ? provinces?.find(item => item.province_id === province)?.province_name : ''}`,
+      province: province ? provinces?.find(item => item.province_id === province)?.province_name : ''
+    }))
+  }, [province, district])
 
 
   return (
