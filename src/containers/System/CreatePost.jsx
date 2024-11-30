@@ -1,10 +1,11 @@
 import React, { memo, useState } from 'react'
 import { Address, Button, Loading, Overview } from '../../components'
 import { BsCameraFill } from 'react-icons/bs'
-import { apiUpLoadImages } from '../../services'
+import { apiCreatePost, apiUpLoadImages } from '../../services'
 import { ImBin } from 'react-icons/im'
 import { useSelector } from 'react-redux'
-import { getCodes } from '../../ultils/Common/getCodes'
+import { getCodes, getCodesArea } from '../../ultils/Common/getCodes'
+import Swal from 'sweetalert2'
 const CreatePost = () => {
 
   const [payload, setPayload] = useState({
@@ -22,7 +23,8 @@ const CreatePost = () => {
   })
   const [imagesPreview, setImagesPreview] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const { prices, areas } = useSelector(state => state.app)
+  const { prices, areas, categories, provinces } = useSelector(state => state.app)
+  const { currentData } = useSelector(state => state.user)
 
 
   const handleFiles = async (e) => {
@@ -50,10 +52,40 @@ const CreatePost = () => {
     }))
   }
 
-  const handleSubmit = () => {
-    let priceCodeArr = getCodes([+payload.priceNumber, +payload.priceNumber], prices)
-    let priceCode = priceCodeArr[priceCodeArr?.length - 1]?.code
-    console.log(priceCode)
+  const handleSubmit = async () => {
+    let priceCodeArr = getCodes(+payload.priceNumber / Math.pow(10, 6), prices, 1, 15)
+    let priceCode = priceCodeArr[0]?.code
+    let areaCodeArr = getCodesArea(+payload.areaNumber, areas,)
+    let areaCode = areaCodeArr[0]?.code
+    let finalPayload = {
+      ...payload,
+      priceCode,
+      areaCode,
+      userId: currentData?.id,
+      priceNumber: +payload.priceNumber / Math.pow(10, 6),
+      target: payload.target || 'Tất cả',
+      label: `${categories?.find(item => item.code === payload.categoryCode)?.value} ${payload.address?.split(',')[0]}`
+    }
+    const response = await apiCreatePost(finalPayload)
+    if (response?.data?.err === 0) {
+      Swal.fire('Thành công', 'Đăng tin thành công', 'success').then(() => {
+        setPayload({
+          categoryCode: '',
+          title: '',
+          priceNumber: 0,
+          areaNumber: 0,
+          images: '',
+          address: '',
+          priceCode: '',
+          areaCode: '',
+          description: '',
+          target: '',
+          province: ''
+        })
+      })
+    } else {
+      Swal.fire('Oops!', 'Đã có lỗi xảy ra', 'error')
+    }
   }
 
   return (
