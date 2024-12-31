@@ -1,6 +1,13 @@
 import React, { memo } from 'react'
 
-const Select = ({ label, options, value, setValue, type, reset, name }) => {
+const Select = ({ label, options, value, setValue, type, reset, name, invalidFields, setInvalidFields }) => {
+
+  const handleErrorText = () => {
+    let nameInvalid = invalidFields?.find(item => item.name === name)
+    let addressInvalid = invalidFields?.find(item => item.name === 'address')
+    return `${nameInvalid ? nameInvalid.message : ''}` || `${addressInvalid ? addressInvalid.message : ''}`
+  }
+
   return (
     <div className='flex flex-col gap-2 w-full flex-1'>
       <label className='font-medium' htmlFor="Select">{label}</label>
@@ -9,6 +16,7 @@ const Select = ({ label, options, value, setValue, type, reset, name }) => {
         onChange={(e) => !name ? setValue(e.target.value) : setValue(prev => ({ ...prev, [name]: e.target.value }))}
         id="Select"
         className='outline-none border border-gray-300 p-2 rounded-md w-full'
+        onFocus={() => setInvalidFields([])}
       >
         <option value="">{`--Chọn ${label} --`}</option>
         {options?.map(item => (
@@ -20,6 +28,9 @@ const Select = ({ label, options, value, setValue, type, reset, name }) => {
           </option>
         ))}
       </select>
+      <small className='text-red-500 italic'>
+        {handleErrorText()}
+      </small>
     </div>
   )
 }

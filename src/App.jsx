@@ -25,7 +25,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-primary ">
+    <div className="bg-primary overflow-hidden">
       <Routes >
         <Route path={path.HOME} element={<Home />} >
           <Route path='*' element={<HomePage />} />
