@@ -28,9 +28,9 @@ const Select = ({ label, options, value, setValue, type, reset, name, invalidFie
           </option>
         ))}
       </select>
-      <small className='text-red-500 italic'>
+      {invalidFields && <small className='text-red-500 italic'>
         {handleErrorText()}
-      </small>
+      </small>}
     </div>
   )
 }

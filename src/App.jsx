@@ -6,6 +6,7 @@ import CreatePost from "./containers/System/CreatePost";
 import * as actions from './store/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
+import ManagePost from "./containers/System/ManagePost";
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
 
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />} />
+          <Route path={path.MANAGE_POST} element={<ManagePost />} />
         </Route>
       </Routes>
     </div>

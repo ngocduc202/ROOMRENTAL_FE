@@ -9,7 +9,8 @@ export const path = {
   DETAIL_POST__TITLE__POSTID: 'chi-tiet/:title/:postId',
   SEARCH: 'tim-kiem',
   SYSTEM: '/he-thong/*',
-  CREATE_POST: 'tao-moi-bai-dang'
+  CREATE_POST: 'tao-moi-bai-dang',
+  MANAGE_POST: 'quan-ly-bai-dang',
 }
 export const text = {
   HOME_TITLE: 'Kênh thông tin Phòng Trọ số 1 Việt Nam',

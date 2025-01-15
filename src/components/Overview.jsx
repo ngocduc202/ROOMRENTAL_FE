@@ -14,6 +14,7 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
 
   const { categories } = useSelector(state => state.app)
   const { currentData } = useSelector(state => state.user)
+  const { dataEdit } = useSelector(state => state.post)
   return (
     <div>
       <h2 className='font-semibold text-xl py-4'>Thông tin mô tả</h2>

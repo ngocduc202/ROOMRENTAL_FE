@@ -8,7 +8,7 @@ const Button = ({ text, textColor, bgColor, icAfter, onClick, fullWith, px }) =>
       onClick={onClick}
     >
       <span>{text}</span>
-      <span> {icAfter && icAfter}</span>
+      {icAfter && <span> {icAfter}</span>}
 
     </button>
   )
