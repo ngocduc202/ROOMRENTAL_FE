@@ -4,14 +4,24 @@ import * as actions from '../../store/action'
 import moment from 'moment'
 import Button from '../../components/Common/Button'
 import UpdatePost from '../../components/Posts/UpdatePost'
+import { apiDeletePost } from '../../services'
+import Swal from 'sweetalert2'
 
 const ManagePost = () => {
   const dispatch = useDispatch()
   const [isEdit, setIsEdit] = useState(false)
+  const [updateData, setUpdateData] = useState(false)
+  const [posts, setPosts] = useState([])
+  const [status, setStatus] = useState('0')
   const { postOfCurrent, dataEdit } = useSelector(state => state.post)
   useEffect(() => {
-    dispatch(actions.getPostsLimitAdmin())
-  }, [])
+    !dataEdit && dispatch(actions.getPostsLimitAdmin())
+  }, [dataEdit, updateData])
+
+  useEffect(() => {
+    setPosts(postOfCurrent)
+  }, [postOfCurrent])
+
 
   useEffect(() => {
     !dataEdit && setIsEdit(false)
@@ -21,12 +31,36 @@ const ManagePost = () => {
     return moment(dateString, "DD/MM/YYYY").isSameOrAfter(new Date().toDateString())
   }
 
+  const handleDeletePost = async (postId) => {
+    const response = await apiDeletePost(postId)
+    if (response?.data.err === 0) {
+      setUpdateData(prev => !prev)
+    } else {
+      Swal.fire('Oops!', 'Có lỗi khi xóa bài đăng', 'error')
+    }
+  }
+
+  useEffect(() => {
+    if (status === 1) {
+      const activePost = postOfCurrent?.filter(item => checkStatus(item?.overviews?.expired?.split(' ')[3]))
+      setPosts(activePost)
+    } else if (status === 2) {
+      const expiredPost = postOfCurrent?.filter(item => !checkStatus(item?.overviews?.expired?.split(' ')[3]))
+      setPosts(expiredPost)
+    } else {
+      setPosts(postOfCurrent)
+    }
+  }, [status])
+
+
   return (
     <div className='flex flex-col gap-6'>
       <div className='py-4 border-b border-gray-200 flex items-center justify-between'>
         <h1 className='text-3xl font-medium'>Quản lý tin đăng</h1>
-        <select className='outline-none border p-2 border-gray-200 rounded-md'>
-          <option value="">Lọc theo trạng thái</option>
+        <select onChange={e => setStatus(+e.target.value)} value={status} className='outline-none border p-2 border-gray-200 rounded-md'>
+          <option value="0">Lọc theo trạng thái</option>
+          <option value="1">Đang hoạt động</option>
+          <option value="2">Đã hết hạn</option>
         </select>
       </div>
       <table className="w-full table-auto">
@@ -43,10 +77,10 @@ const ManagePost = () => {
           </tr>
         </thead>
         <tbody>
-          {!postOfCurrent ? <tr>
+          {!posts ? <tr>
             <td>das</td>
           </tr> :
-            postOfCurrent?.map(item => (
+            posts?.map(item => (
               <tr key={item.id} className='h-16 flex items-center'>
                 <td className='border px-2 flex-1 flex items-center justify-center h-full text-center'>{item?.overviews?.code}</td>
                 <td className='border px-2 flex-1 h-full flex items-center justify-center'>
@@ -75,6 +109,7 @@ const ManagePost = () => {
                     text='Xóa'
                     bgColor='bg-orange-600'
                     textColor='text-white'
+                    onClick={() => handleDeletePost(item?.id)}
                   />
                 </td>
               </tr>
