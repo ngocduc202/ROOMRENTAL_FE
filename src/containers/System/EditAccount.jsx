@@ -13,7 +13,7 @@ const EditAccount = () => {
   const dispatch = useDispatch()
   const [payload, setPayload] = useState({
     name: currentData?.name || '',
-    avatar: blobToBase64(currentData?.avatar) || '',
+    avatar: (currentData?.avatar && blobToBase64(currentData?.avatar)) || '',
     fbUrl: currentData?.fbUrl || '',
     zalo: currentData?.zalo || ''
   })

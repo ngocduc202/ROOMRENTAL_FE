@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { DetailPost, Home, HomePage, Login, Rental, SearchDetail } from "./containers/Public";
+import { Contact, DetailPost, Home, HomePage, Login, Rental, SearchDetail } from "./containers/Public";
 import { path } from "./ultils/constant";
 import System from "./containers/System/System";
 import CreatePost from "./containers/System/CreatePost";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import ManagePost from "./containers/System/ManagePost";
 import EditAccount from "./containers/System/EditAccount";
+
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
           <Route path={path.CHO_THUE_PHONG_TRO} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route path={'chi-tiet/*'} element={<DetailPost />} />
         </Route>
 
