@@ -1,37 +1,65 @@
 import React, { useState } from 'react'
 import { Button, InputFormV2, InputReadOnly } from '../../components'
 import anonAvatar from '../../assets/anon-avatar.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { apiUpdateUser } from '../../services'
+import { blobToBase64, fileToBase64 } from '../../ultils/Common/tobase64'
+import { getCurrent } from '../../store/action'
+import Swal from 'sweetalert2'
 
 const EditAccount = () => {
 
-  const [invalidFields, setInvalidFields] = useState([])
+  const { currentData } = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  const [payload, setPayload] = useState({
+    name: currentData?.name || '',
+    avatar: blobToBase64(currentData?.avatar) || '',
+    fbUrl: currentData?.fbUrl || '',
+    zalo: currentData?.zalo || ''
+  })
+  const handleSubmit = async () => {
+    const response = await apiUpdateUser(payload)
+    if (response?.data.err === 0) {
+      Swal.fire('Done', 'Chỉnh sửa thành công', 'success').then(() => {
+        dispatch(getCurrent())
+      })
+    } else {
+      Swal.fire('Oops!', 'Đã có lỗi xảy ra', 'error')
+    }
+  }
+
+  const handleUploadFile = async (e) => {
+    const imageBase64 = await fileToBase64(e.target.files[0])
+    setPayload(prev => ({
+      ...prev,
+      avatar: imageBase64
+    }))
+  }
 
   return (
     <div className='flex flex-col h-full items-center'>
       <h1 className='text-3xl w-full text-start font-medium py-4 border-b border-gray-200'>Cập nhật thông tin cá nhân</h1>
       <div className='w-3/5 flex items-center justify-center flex-auto'>
         <div className='py-6 flex flex-col gap-4 w-full'>
-          <InputReadOnly direction='flex-row' label='Mã thành viên' />
-          <InputReadOnly direction='flex-row' label='Số điện thoại' editPhone />
+          <InputReadOnly value={`#${currentData?.id?.match(/\d/g).join('')?.slice(0, 6)}` || ''} direction='flex-row' label='Mã thành viên' />
+          <InputReadOnly value={currentData?.phone} direction='flex-row' label='Số điện thoại' editPhone />
           <InputFormV2
-            invalidFields={invalidFields}
-            setInvalidFields={setInvalidFields}
+            name='name'
+            setValue={setPayload}
             direction='flex-row'
+            value={payload?.name}
             label='Tên hiển thị' />
           <InputFormV2
-            invalidFields={invalidFields}
-            setInvalidFields={setInvalidFields}
-            label='Email'
-            direction='flex-row' />
-          <InputFormV2
-            invalidFields={invalidFields}
-            setInvalidFields={setInvalidFields}
+            name='zalo'
+            setValue={setPayload}
             label='Zalo'
+            value={payload?.zalo}
             direction='flex-row' />
           <InputFormV2
-            invalidFields={invalidFields}
-            setInvalidFields={setInvalidFields}
+            name='fbUrl'
+            setValue={setPayload}
             label='Facebook'
+            value={payload?.fbUrl}
             direction='flex-row' />
           <div className='flex'>
             <label className='w-48 flex-none' htmlFor="password">Mật khẩu</label>
@@ -39,12 +67,16 @@ const EditAccount = () => {
           </div>
           <div className='flex mb-6'>
             <label className='w-48 flex-none' htmlFor="avatar">Ảnh đại diện</label>
-            <img src={anonAvatar} alt="avatar" className='w-28 h-28 rounded-full object-cover' />
+            <div>
+              <img src={payload.avatar || anonAvatar} alt="avatar" className='w-28 h-28 rounded-full object-cover' />
+              <input type="file" id="avatar" className='appearance-none my-4' onChange={handleUploadFile} />
+            </div>
           </div>
           <Button
             text='Cập nhật'
             bgColor='bg-blue-600'
             textColor='text-white'
+            onClick={handleSubmit}
           />
         </div>
       </div>
