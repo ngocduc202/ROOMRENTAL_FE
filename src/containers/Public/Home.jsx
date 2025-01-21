@@ -17,7 +17,7 @@ const Home = () => {
     <div className='w-full flex flex-col gap-6 items-center h-full'>
       <Header />
       <Navigation />
-      {isLoggedIn && location.pathname !== `/${path.CONTACT}` && <Search />}
+      {isLoggedIn && location.pathname !== `/${path.CONTACT}` && !location.pathname?.includes(path.DETAIL) && <Search />}
       <div className='lg:w-3/5 w-4/5 flex flex-col items-start justify-start mt-3'>
         <Outlet />
       </div>
