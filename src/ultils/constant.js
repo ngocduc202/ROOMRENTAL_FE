@@ -38,3 +38,16 @@ export const location = [
     id: 'dn',
   },
 ]
+
+export const underMap = [
+  'Bạn đang xem nội dung tin đăng: "' ,
+  '". Mọi thông tin liên quan đến tin đăng này chỉ mang tính chất tham khảo. Nếu bạn có phản hồi với tin đăng này (báo xấu , tin đã cho thuê , không liên lạc được ,...) , vui lòng báo để Phongtro123 có thể xử lí'
+]
+
+export const attention = [
+  'Nội dung phải viết bằng tiếng việt có dấu',
+  'Tiêu đề tin không dài quá 100 ký tự',
+  'Các bạn nên điền đầy đủ thông tin vào các mục để tin đăng hiệu quả hơn',
+  'Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn , hãy sửa vị trí rao tin của bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin rao.',
+  'Tin đăng và hình ảnh rõ ràng sẽ được xem và gọi gấp nhiều lần so với tin rao không có ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng!'
+]

@@ -5,6 +5,7 @@ import { getPostsLimit } from '../../store/action'
 import SliderCustom from '../../components/Common/SliderCustom'
 import icons from '../../ultils/icons'
 import { Map } from '../../components'
+import { underMap } from '../../ultils/constant'
 
 const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } = icons
 
@@ -120,6 +121,15 @@ const DetailPost = () => {
           <div className='mt-8'>
             <h3 className='font-semibold text-lg my-4'>Bản đồ</h3>
             <Map address={posts[0]?.address} />
+            <span className='text-gray-500 text-sm py-4 text-justify'>
+              {`${underMap[0]}`}
+            </span>
+            <span className='text-gray-500 text-sm py-4 text-justify italic'>
+              {`${posts[0]?.title} - Mã tin: ${posts[0]?.attributes?.hashtag}`}
+            </span>
+            <span className='text-gray-500 text-sm py-4 text-justify'>
+              {`${underMap[1]}`}
+            </span>
           </div>
         </div>
       </div>

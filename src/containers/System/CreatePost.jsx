@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react'
-import { Address, Button, Loading, Overview } from '../../components'
+import { Address, Button, Loading, Overview, Map } from '../../components'
 import { BsCameraFill } from 'react-icons/bs'
 import { apiCreatePost, apiUpdatePost, apiUpLoadImages } from '../../services'
 import { ImBin } from 'react-icons/im'
@@ -8,6 +8,7 @@ import { getCodes, getCodesArea } from '../../ultils/Common/getCodes'
 import Swal from 'sweetalert2'
 import validate from '../../ultils/Common/validateFields'
 import { resetDataEdit } from '../../store/action'
+import { attention } from '../../ultils/constant'
 const CreatePost = ({ isEdit }) => {
 
   const { dataEdit } = useSelector(state => state.post)
@@ -175,8 +176,18 @@ const CreatePost = ({ isEdit }) => {
             />
           </div>
         </div>
-        <div className='w-[30%] flex-none'>
-          map
+        <div className='w-[30%] flex-none pt-12'>
+          <Map address={payload?.address} />
+          <div className='mt-8 bg-orange-100 text-orange-900 rounded-md p-4'>
+            <h4 className='text-xl font-medium mb-4'>Lưu ý tin đăng</h4>
+            <div className='text-sm list-disc text-justify'>
+              {attention.map((item, index) => (
+                <li key={index}>
+                  {item}
+                </li>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
