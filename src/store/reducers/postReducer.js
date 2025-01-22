@@ -6,7 +6,8 @@ const initState = {
   count: 0,
   newPosts: [],
   postOfCurrent:[],
-  dataEdit : null
+  dataEdit : null,
+  outStandingPost: []
 }
 
 const postReducer = (state = initState, action) => {
@@ -26,6 +27,13 @@ const postReducer = (state = initState, action) => {
         msg: action.msg || '',
         newPosts: action.newPosts || []
       }
+
+      case actionTypes.GET_OUTSTANDING:
+        return {
+          ...state,
+          msg: action.msg || '',
+          outStandingPost: action.outStandingPost || []
+        }
 
       case actionTypes.GET_POSTS_LIMIT_ADMIN:
         return {

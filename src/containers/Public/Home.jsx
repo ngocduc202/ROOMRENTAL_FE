@@ -18,12 +18,12 @@ const Home = () => {
       <Header />
       <Navigation />
       {isLoggedIn && location.pathname !== `/${path.CONTACT}` && !location.pathname?.includes(path.DETAIL) && <Search />}
-      <div className='lg:w-3/5 w-4/5 flex flex-col items-start justify-start mt-3'>
+      <div className='lg:w-[70%] w-4/5 flex flex-col items-start justify-start mt-3'>
         <Outlet />
       </div>
       <Intro />
       <Contact />
-      <div className='h-[500px]'></div>
+      <div className='h-[50px]'></div>
     </div>
   )
 }

@@ -27,7 +27,7 @@ const Header = () => {
 
 
   return (
-    <div ref={headerRef} className='w-3/5'>
+    <div ref={headerRef} className='w-[70%]'>
       <div className='w-full flex items-center justify-between'>
         <Link to={'/'}><img src={logo} alt="logo" className='w-[240px] h-[70px] object-contain' /></Link>
         <div className='flex gap-1 items-center'>

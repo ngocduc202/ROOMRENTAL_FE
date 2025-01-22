@@ -1,28 +1,35 @@
-import {SItem} from '../index';
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
+import { SItem } from '../index';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import * as actions from '../../store/action'
 
-const RelatedPost = () => {
+const RelatedPost = ({ newPost }) => {
 
+    const [posts, setPosts] = useState([])
     const dispatch = useDispatch()
-    const {newPosts} = useSelector((state) => state.post)
+    const { newPosts, outStandingPost } = useSelector((state) => state.post)
 
     useEffect(() => {
-        dispatch(actions.getNewPosts())
+        newPost ? dispatch(actions.getNewPosts()) : dispatch(actions.getOutStandingPost())
     }, []);
+
+    useEffect(() => {
+        newPost ? setPosts(newPosts) : setPosts(outStandingPost)
+    }, [newPosts, outStandingPost])
+
 
     return (
         <div className='w-full bg-white rounded-md p-4'>
-           <h3 className='font-semibold text-lg mb-4'>Tin mới đăng </h3>
+            <h3 className='font-semibold text-lg mb-4'>{newPost ? 'Tin mới đăng' : 'Tin nổi bật'} </h3>
             <div className='w-full flex flex-col gap-2'>
-                {newPosts?.map((item, index) =>
+                {posts?.map((item, index) =>
                     <SItem
                         key={index}
-                        title={item.title}
+                        title={item?.title}
                         price={item?.attributes?.price}
-                        image={JSON.parse(item.images.image)}
-                        createdAt={item.createdAt}
+                        image={JSON.parse(item?.images?.image)}
+                        createdAt={item?.createdAt}
+                        star={item?.star}
                     />
                 )}
             </div>

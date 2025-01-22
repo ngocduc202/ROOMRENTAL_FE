@@ -1,6 +1,6 @@
 import { AiOutlineLogout, AiOutlinePlusCircle } from 'react-icons/ai'
 import { GrNext, GrStar, GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
-import { BsChevronRight, BsBookmarkStarFill, BsChevronBarDown, BsChevronDown, BsStopwatch, BsHash } from 'react-icons/bs'
+import { BsChevronRight, BsBookmarkStarFill, BsChevronBarDown, BsChevronDown, BsStopwatch, BsHash, BsDot, BsTelephoneFill } from 'react-icons/bs'
 import { GoLocation } from 'react-icons/go'
 import { TbReportMoney } from 'react-icons/tb'
 import { RiCrop2Line, RiHeartFill, RiHeartLine } from 'react-icons/ri'
@@ -10,6 +10,7 @@ import { ImPencil2 } from 'react-icons/im'
 import { MdOutlineLibraryBooks } from 'react-icons/md'
 import { TiEdit } from "react-icons/ti"
 import { HiLocationMarker } from 'react-icons/hi'
+import { SiZalo } from 'react-icons/si'
 
 const icons = {
   AiOutlinePlusCircle,
@@ -34,7 +35,10 @@ const icons = {
   TiEdit,
   HiLocationMarker,
   BsStopwatch,
-  BsHash
+  BsHash,
+  BsDot,
+  BsTelephoneFill,
+  SiZalo
 }
 
 export default icons

@@ -1,10 +1,19 @@
 import moment from 'moment';
 import 'moment/locale/vi'
+import { GrStar } from 'react-icons/gr';
 
-const SItem = ({title, price,image , createdAt}) => {
+const SItem = ({ title, price, image, createdAt, star }) => {
 
     const formatTime = (createdAt) => {
         return moment(createdAt).fromNow()
+    }
+
+    const handleStar = (star) => {
+        let stars = []
+        for (let i = 0; i <= +star; i++) {
+            stars.push(<GrStar key={i} className='star-item' size={18} color='yellow' />)
+        }
+        return stars
     }
 
     return (
@@ -15,7 +24,12 @@ const SItem = ({title, price,image , createdAt}) => {
                 alt="anh"
             />
             <div className='w-full flex-auto flex flex-col justify-between gap-1'>
-                <h4 className='text-blue-600 text-[14px]'>{`${title?.slice(0,25)}...`}</h4>
+                <h4 className='text-blue-600 text-[14px]'>
+                    {handleStar(+star).length > 0 && handleStar(+star).map((star, number) => (
+                        <span key={number}>{star}</span>
+                    ))}
+                    {`${title?.slice(0, 25)}...`}
+                </h4>
                 <div className='flex items-center justify-between w-full'>
                     <span className='font-medium text-green-500 text-xs'>{price}</span>
                     <span className='text-gray-400 text-xs'>{formatTime(createdAt)}</span>

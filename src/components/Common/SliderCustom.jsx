@@ -16,11 +16,11 @@ const SliderCustom = ({ images }) => {
       <Slider {...settings}>
         {images?.length > 0 && images?.map((item, index) => {
           return (
-            <div key={index} className='bg-black flex justify-center h-[320px] px-12'>
+            <div key={index} className='bg-black flex justify-center h-[320px] px-12 rounded-md'>
               <img
                 src={item}
                 alt="slider"
-                className='h-full object-contain m-auto' />
+                className='h-full object-contain m-auto ' />
             </div>
           )
         })}

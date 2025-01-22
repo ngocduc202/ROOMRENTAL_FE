@@ -11,7 +11,7 @@ const customIcon = new Icon({
   iconSize: [38, 38]
 
 })
-const Map = ({ address, zoom = 14 }) => {
+const Map = ({ address, zoom = 11 }) => {
 
   const [center, setCenter] = useState([])
   useEffect(() => {

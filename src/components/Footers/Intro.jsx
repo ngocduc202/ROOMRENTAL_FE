@@ -14,7 +14,7 @@ const Intro = () => {
   const { categories } = useSelector((state) => state.app)
 
   return (
-    <div className='w-3/5 bg-white rounded-md shadow-md gap-4 p-4 flex flex-col justify-center items-center'>
+    <div className='w-[70%] bg-white rounded-md shadow-md gap-4 p-4 flex flex-col justify-center items-center'>
       <h3 className='font-bold text-lg'>{text.title}</h3>
       <p className='text-gray-800 text-center my-4'>
         {text.description}

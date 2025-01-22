@@ -17,7 +17,7 @@ const Navigation = ({ isAdmin }) => {
 
   return (
     <div className={`w-full flex ${isAdmin ? 'justify-start' : 'justify-center'} items-center h-[40px] bg-secondary1 text-white`}>
-      <div className='w-3/5 flex h-full items-center text-sm font-medium'>
+      <div className='w-[70%] flex h-full items-center text-sm font-medium'>
         <NavLink
           to={`/`}
           className={({ isActive }) => isActive ? 'hover:bg-secondary2 bg-secondary2 h-full flex items-center px-4' : 'hover:bg-secondary2 h-full flex items-center px-4'}

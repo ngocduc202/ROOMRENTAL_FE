@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getPostsLimit } from '../../store/action'
 import SliderCustom from '../../components/Common/SliderCustom'
 import icons from '../../ultils/icons'
-import { Map } from '../../components'
+import { Map, BoxInfo, RelatedPost } from '../../components'
 import { underMap } from '../../ultils/constant'
 
 const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } = icons
@@ -23,7 +23,7 @@ const DetailPost = () => {
     <div className='w-full flex gap-4'>
       <div className='w-[70%]'>
         <SliderCustom images={posts && posts.length > 0 && JSON.parse(posts[0]?.images?.image)} />
-        <div className='bg-white rounded-md shadow-md p-4 '>
+        <div className='bg-white rounded-md shadow-md p-4 mt-2 '>
           <div className='flex flex-col gap-2'>
             <h2 className='text-xl font-bold text-red-600'>{posts[0]?.title}</h2>
             <div className='flex items-center gap-2'>
@@ -133,8 +133,10 @@ const DetailPost = () => {
           </div>
         </div>
       </div>
-      <div className='w-[30%]'>
-        sidebar
+      <div className='w-[30%] flex flex-col gap-3'>
+        <BoxInfo userData={posts[0]?.user} />
+        <RelatedPost />
+        <RelatedPost newPost />
       </div>
     </div>
   )
