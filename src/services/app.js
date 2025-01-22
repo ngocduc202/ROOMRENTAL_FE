@@ -61,3 +61,16 @@ export const apiGetPublicDistrict = (provinceId) => new Promise(async (resolve, 
       reject(error)
   }
 })
+
+export const apiGetLongtitudeAndLatitudeFromAddress = (address) => new Promise(async (resolve, reject) => {
+  console.log(address)
+  try {
+      const response = await axios({
+          method: 'get',
+          url: `https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=368e75d05eee4aeca9904b6dda17d316`
+      })
+      resolve(response)
+  } catch (error) {
+      reject(error)
+  }
+})

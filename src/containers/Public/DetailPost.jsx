@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getPostsLimit } from '../../store/action'
 import SliderCustom from '../../components/Common/SliderCustom'
 import icons from '../../ultils/icons'
+import { Map } from '../../components'
 
 const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } = icons
 
@@ -101,7 +102,7 @@ const DetailPost = () => {
             <table className='w-full'>
               <tbody className='w-full'>
                 <tr className='w-full'>
-                  <td className='p-2'>Liên hệhệ</td>
+                  <td className='p-2'>Liên hệ</td>
                   <td className='p-2'>{posts[0]?.user?.name}</td>
                 </tr>
                 <tr className='w-full bg-gray-200'>
@@ -118,6 +119,7 @@ const DetailPost = () => {
           </div>
           <div className='mt-8'>
             <h3 className='font-semibold text-lg my-4'>Bản đồ</h3>
+            <Map address={posts[0]?.address} />
           </div>
         </div>
       </div>
