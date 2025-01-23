@@ -13,7 +13,7 @@ export const path = {
   MANAGE_POST: 'quan-ly-bai-dang',
   EDIT_ACCOUNT: 'sua-thong-tin-ca-nhan',
   CONTACT: 'lien-he',
-  DETAIL: 'chi-tiet',
+  DETAIL: '/chi-tiet',
   DETAIL_ALL: 'chi-tiet/*',
 }
 export const text = {
@@ -25,17 +25,20 @@ export const location = [
   {
     id: 'hcm',
     name: 'Phòng trọ Hồ Chí Minh',
-    image: 'https://phongtro123.com/images/location_hcm.jpg'
+    image: 'https://phongtro123.com/images/location_hcm.jpg',
+    provinceCode: 'CHMN'
   },
   {
+    id: 'hn',
     name: 'Phòng trọ Hà Nội',
     image: 'https://phongtro123.com/images/location_hn.jpg',
-    id: 'hn',
+      provinceCode: 'NNIT'
   },
   {
+    id: 'dn',
     name: 'Phòng trọ Đà nẵng',
     image: 'https://phongtro123.com/images/location_dn.jpg',
-    id: 'dn',
+      provinceCode: 'NONG'
   },
 ]
 

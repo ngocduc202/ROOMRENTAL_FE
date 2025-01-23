@@ -65,7 +65,13 @@ const Header = () => {
               </div>}
             </div>
           }
-          <Button text='Đăng tin mới' textColor='text-white' bgColor='bg-secondary2' icAfter={<AiOutlinePlusCircle />} />
+          <Button
+            text='Đăng tin mới'
+            textColor='text-white'
+            bgColor='bg-secondary2'
+            icAfter={<AiOutlinePlusCircle />}
+            onClick={() => navigate('/he-thong/tao-moi-bai-dang')}
+          />
         </div>
       </div>
     </div>

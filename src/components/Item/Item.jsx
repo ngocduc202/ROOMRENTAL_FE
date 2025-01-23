@@ -5,7 +5,7 @@ import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseTo
 import { path } from '../../ultils/constant'
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
-const indexs = [0, 1, 2, 3,]
+
 
 const Item = ({ images, user, title, star, description, attributes, address, id }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false)
@@ -19,8 +19,8 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
 
   return (
     <div className='w-full flex border-t border-orange-600 py-3'>
-      <Link to={`${path.DETAIL}/${formatVietnameseToString(title?.replaceAll('/', ''))}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer'>
-        {images?.length > 0 && images?.filter((i, index) => indexs?.some(i => i === index))?.map((i, index) => (
+      <Link to={`/${path.DETAIL}/${formatVietnameseToString(title?.replaceAll('/', ''))}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer'>
+        {images?.length > 0 && images?.filter((i, index) => [...Array(4).keys()]?.some(i => i === index))?.map((i, index) => (
           <img key={index} src={i} alt="" className='w-[47%] h-[117px] object-cover' />
         ))}
         <span className='bg-overlay-70 text-white px-2 rounded-md absolute left-1 bottom-1'>{`${images?.length} ảnh`}</span>
@@ -55,17 +55,21 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&s" alt="avatar" className='w-[30px] h-[30px] rounded-full object-cover' />
             <p className='text-ellipsis whitespace-nowrap overflow-hidden'>{user?.name}</p>
           </div>
-          <div className='flex items-center gap-1 w-[60%]'>
-            <button
+          <div className='flex items-center gap-1 w-[50%]'>
+            <a
               className='bg-blue-700 text-white p-1 rounded-md text-[15px] font-medium h-[35px]'
-              type='button'>
+              href={`tel:${user?.phone}`}
+              target='_blank'
+            >
               {`Gọi ${user?.phone}`}
-            </button>
-            <button
+            </a>
+            <a
               className='text-blue-700 p-1 rounded-md border border-blue-700 text-[15px] h-[35px]'
-              type='button'>
+              href={`https://zalo.me/${user?.zalo}`}
+              target='_blank'
+            >
               Nhắn ZALO
-            </button>
+            </a>
           </div>
         </div>
       </div>
